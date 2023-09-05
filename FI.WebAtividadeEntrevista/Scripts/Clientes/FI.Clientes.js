@@ -1,6 +1,7 @@
 ﻿
 $(document).ready(function () {
     $('#formCadastro').submit(function (e) {
+        console.log(beneficiarios)
         e.preventDefault();
         $.ajax({
             url: urlPost,

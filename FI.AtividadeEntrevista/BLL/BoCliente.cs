@@ -65,7 +65,14 @@ namespace FI.AtividadeEntrevista.BLL
         public List<DML.Cliente> Pesquisa(int iniciarEm, int quantidade, string campoOrdenacao, bool crescente, out int qtd)
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
-            return cli.Pesquisa(iniciarEm,  quantidade, campoOrdenacao, crescente, out qtd);
+            BLL.BoBeneficiario ben = new BLL.BoBeneficiario();
+            var clientes = cli.Pesquisa(iniciarEm,  quantidade, campoOrdenacao, crescente, out qtd);
+            foreach(var cliente in clientes)
+            {
+                cliente.beneficiarios = ben.ListarPorCliente(cliente.Id);
+            }
+
+            return clientes;
         }
 
         /// <summary>

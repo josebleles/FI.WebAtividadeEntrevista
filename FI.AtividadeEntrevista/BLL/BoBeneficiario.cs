@@ -22,10 +22,10 @@ namespace FI.AtividadeEntrevista.BLL
         /// Altera um beneficiario
         /// </summary>
         /// <param name="cliente">Objeto de beneficiario</param>
-        public long Alterar(DML.Beneficiario beneficiario)
+        public void Alterar(DML.Beneficiario beneficiario)
         {
             DAL.DaoBeneficiario ben = new DAL.DaoBeneficiario();
-            return ben.Alterar(beneficiario);
+            ben.Alterar(beneficiario);
         }
 
         /// <summary>
@@ -53,16 +53,16 @@ namespace FI.AtividadeEntrevista.BLL
         /// <summary>
         /// Lista os clientes
         /// </summary>
-        public List<DML.Cliente> Listar()
+        public List<DML.Beneficiario> Listar()
         {
-            DAL.DaoCliente cli = new DAL.DaoCliente();
+            DAL.DaoBeneficiario cli = new DAL.DaoBeneficiario();
             return cli.Listar();
         }
 
-        public DML.Beneficiario Consultar(long id)
+        public List<DML.Beneficiario> ListarPorCliente(long id)
         {
-            DAL.DaoBeneficiario ben = new DAL.DaoBeneficiario();
-            return ben.Consultar(id);
+            DAL.DaoBeneficiario cli = new DAL.DaoBeneficiario();
+            return cli.ListarPorCliente(id);
         }
 
         /// <summary>

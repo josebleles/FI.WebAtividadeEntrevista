@@ -35,14 +35,14 @@ namespace FI.AtividadeEntrevista.DAL
         /// Inclui um novo beneficiario
         /// </summary>
         /// <param name="cliente">Objeto de cliente</param>
-        internal DML.Cliente Consultar(long Id)
+        internal DML.Beneficiario Consultar(long Id)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
             parametros.Add(new System.Data.SqlClient.SqlParameter("Id", Id));
 
             DataSet ds = base.Consultar("FI_SP_ConsCliente", parametros);
-            List<DML.Cliente> cli = Converter(ds);
+            List<DML.Beneficiario> cli = Converter(ds);
 
             return cli.FirstOrDefault();
         }
@@ -61,14 +61,14 @@ namespace FI.AtividadeEntrevista.DAL
         /// <summary>
         /// Lista todos os beneficiarios
         /// </summary>
-        internal List<DML.Cliente> Listar()
+        internal List<DML.Beneficiario> Listar()
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
             parametros.Add(new System.Data.SqlClient.SqlParameter("Id", 0));
 
             DataSet ds = base.Consultar("FI_SP_ConsBeneficiario", parametros);
-            List<DML.Cliente> cli = Converter(ds);
+            List<DML.Beneficiario> cli = Converter(ds);
 
             return cli;
         }
@@ -76,14 +76,14 @@ namespace FI.AtividadeEntrevista.DAL
         /// <summary>
         /// Lista todos os beneficiarios por cliente
         /// </summary>
-        internal List<DML.Cliente> ListarPorCliente(int clienteId)
+        internal List<DML.Beneficiario> ListarPorCliente(long clienteId)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
             parametros.Add(new System.Data.SqlClient.SqlParameter("IdCliente", clienteId));
 
             DataSet ds = base.Consultar("FI_SP_ConsBeneficiarioCliente", parametros);
-            List<DML.Cliente> cli = Converter(ds);
+            List<DML.Beneficiario> cli = Converter(ds);
 
             return cli;
         }

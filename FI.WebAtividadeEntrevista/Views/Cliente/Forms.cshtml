@@ -106,30 +106,40 @@
             </div>
             <div class="modal-body">
                 <div class="row" style="display: flex; align-items: end;">
+                    <input type="hidden" id="benId" name="benId">
 
                     <div class="col-md-5">
                         <div class="form-group">
                             <label for="CPF">CPF:</label>
-                            <input required="required" type="text" class="form-control" id="CPF" name="CPF" placeholder="Ex.: 999.999.999-99" maxlength="15">
+                            <input required="required" type="text" class="form-control" id="benCPF" name="benCPF" placeholder="Ex.: 999.999.999-99" maxlength="15">
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="Nacionalidade">Nacionalidade:</label>
-                            <input required="required" type="text" class="form-control" id="Nacionalidade" name="Nacionalidade" placeholder="Ex.: brasileira" maxlength="50">
+                            <label for="Nacionalidade">Nome:</label>
+                            <input required="required" type="text" class="form-control" id="benNome" name="benNome" placeholder="Ex.: João" maxlength="50">
                         </div>
                     </div>
 
                     <div class="col-md-2">
                         <div class="form-group" style="align-items:center">
-                            <button type="button" class="btn btn-success">Incluir</button>
+                            <button id="incluirBeneficiario" type="button" class="btn btn-success">Incluir</button>
                         </div>
                     </div>
                 </div>
-                <table id="gridBeneficiarios" class="table"></table>
+                <table id="gridBeneficiarios" class="table">
+                    <thead>
+                        <th>Cpf</th>
+                        <th>Nome</th>
+                        <th>#</th>
+                    </thead>
+                    <tbody id="benTableBody">
+
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
@@ -139,6 +149,7 @@
     document.onreadystatechange = function () {
         if (document.readyState == "complete") {
             $("#CPF").inputmask("999.999.999-99");
+            $("#benCPF").inputmask("999.999.999-99");
         }
     }
 </script>
