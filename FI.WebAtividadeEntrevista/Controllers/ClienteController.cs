@@ -11,6 +11,8 @@ namespace WebAtividadeEntrevista.Controllers
 {
     public class ClienteController : Controller
     {
+        
+
         public ActionResult Index()
         {
             return View();
@@ -38,6 +40,18 @@ namespace WebAtividadeEntrevista.Controllers
             }
             else
             {
+
+                if (!Validator.IsCpf(model.CPF) || bo.VerificarExistencia(model.CPF))
+                {
+                    Response.StatusCode = 400;
+                    return Json(string.Join(Environment.NewLine, "CPF INVALIDO OU JÁ EXISTENTE"));
+                }
+
+                if (model.Beneficiarios.Any(b => !Validator.IsCpf(b.CPF)))
+                {
+                    Response.StatusCode = 400;
+                    return Json(string.Join(Environment.NewLine, "CPF INVALIDO EM UM BENEFICIARIO"));
+                }
                 
                 model.Id = bo.Incluir(new Cliente()
                 {                    
@@ -67,7 +81,8 @@ namespace WebAtividadeEntrevista.Controllers
         public JsonResult Alterar(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
-       
+            BoBeneficiario boBen = new BoBeneficiario();
+
             if (!this.ModelState.IsValid)
             {
                 List<string> erros = (from item in ModelState.Values
@@ -79,6 +94,21 @@ namespace WebAtividadeEntrevista.Controllers
             }
             else
             {
+                if (!Validator.IsCpf(model.CPF))
+                {
+                    Response.StatusCode = 400;
+                    return Json(string.Join(Environment.NewLine, "CPF INVALIDO OU JÁ EXISTENTE"));
+                }
+
+                if (model.Beneficiarios.Any(b => 
+                    !Validator.IsCpf(b.CPF) 
+                    || (b.Id == 0 && boBen.VerificarExistencia(b.CPF, model.Id)))
+                   )
+                {
+                    Response.StatusCode = 400;
+                    return Json(string.Join(Environment.NewLine, "CPF INVALIDO OU JÁ EXISTENTE EM UM BENEFICIARIO"));
+                }
+
                 bo.Alterar(new Cliente()
                 {
                     Id = model.Id,
