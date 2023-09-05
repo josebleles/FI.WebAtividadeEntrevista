@@ -44,6 +44,7 @@ namespace WebAtividadeEntrevista.Controllers
                     CEP = model.CEP,
                     Cidade = model.Cidade,
                     Email = model.Email,
+                    CPF = model.CPF.Replace(".", "").Replace("-", ""),
                     Estado = model.Estado,
                     Logradouro = model.Logradouro,
                     Nacionalidade = model.Nacionalidade,
@@ -53,7 +54,7 @@ namespace WebAtividadeEntrevista.Controllers
                     Beneficiarios = model.Beneficiarios.Select(b => new Beneficiario()
                     {
                         Nome = b.Nome,
-                        CPF = b.CPF
+                        CPF = b.CPF.Replace(".", "").Replace("-", "")
                     }).ToList()
                 });
 
@@ -81,6 +82,7 @@ namespace WebAtividadeEntrevista.Controllers
                 bo.Alterar(new Cliente()
                 {
                     Id = model.Id,
+                    CPF = model.CPF.Replace(".","").Replace("-", ""),
                     CEP = model.CEP,
                     Cidade = model.Cidade,
                     Email = model.Email,
@@ -94,7 +96,7 @@ namespace WebAtividadeEntrevista.Controllers
                     {
                         Id = b.Id,
                         Nome = b.Nome,
-                        CPF = b.CPF,
+                        CPF = b.CPF.Replace(".", "").Replace("-", ""),
                         IdCliente = model.Id
                     }).ToList()
                 });
@@ -116,6 +118,7 @@ namespace WebAtividadeEntrevista.Controllers
                 {
                     Id = cliente.Id,
                     CEP = cliente.CEP,
+                    CPF = cliente.CPF,
                     Cidade = cliente.Cidade,
                     Email = cliente.Email,
                     Estado = cliente.Estado,

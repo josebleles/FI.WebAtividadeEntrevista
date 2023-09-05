@@ -3,10 +3,10 @@ var selectBenIndex = null;
 var btnIncluir = document.getElementById('incluirBeneficiario');
 $(document).ready(function () {
     if (isUpdate) {
-        beneficiarios = obj.beneficiarios.map(b => ({
-            id: b.id,
-            nome: b.nome,
-            cpf: b.cpf
+        beneficiarios = obj.Beneficiarios.map(b => ({
+            id: b.Id,
+            nome: b.Nome,
+            cpf: b.CPF
         }));
     }
     $(btnIncluir).click(function (e) {

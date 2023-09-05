@@ -23,6 +23,7 @@ namespace FI.AtividadeEntrevista.DAL
             
             parametros.Add(new System.Data.SqlClient.SqlParameter("Nome", cliente.Nome));
             parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", cliente.CPF));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("IDCLIENTE", cliente.IdCliente));
 
             DataSet ds = base.Consultar("FI_SP_IncBeneficiario", parametros);
             long ret = 0;

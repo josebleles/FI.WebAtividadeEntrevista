@@ -67,7 +67,7 @@ namespace FI.AtividadeEntrevista.BLL
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
             BLL.BoBeneficiario ben = new BLL.BoBeneficiario();
-            var cliente = this.Consultar(id);
+            var cliente = cli.Consultar(id);
             cliente.Beneficiarios = ben.ListarPorCliente(cliente.Id);
             
             return cliente;

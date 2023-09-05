@@ -9,7 +9,7 @@ $(document).ready(function () {
                 "NOME": $(this).find("#Nome").val(),
                 "CEP": $(this).find("#CEP").val(),
                 "Email": $(this).find("#Email").val(),
-                "Email": $(this).find("#CPF").val(),
+                "CPF": $(this).find("#CPF").val(),
                 "Sobrenome": $(this).find("#Sobrenome").val(),
                 "Nacionalidade": $(this).find("#Nacionalidade").val(),
                 "Estado": $(this).find("#Estado").val(),
