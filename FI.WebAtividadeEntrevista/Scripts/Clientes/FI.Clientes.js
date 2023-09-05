@@ -1,7 +1,6 @@
 ﻿
 $(document).ready(function () {
     $('#formCadastro').submit(function (e) {
-        console.log(beneficiarios)
         e.preventDefault();
         $.ajax({
             url: urlPost,
@@ -10,12 +9,14 @@ $(document).ready(function () {
                 "NOME": $(this).find("#Nome").val(),
                 "CEP": $(this).find("#CEP").val(),
                 "Email": $(this).find("#Email").val(),
+                "Email": $(this).find("#CPF").val(),
                 "Sobrenome": $(this).find("#Sobrenome").val(),
                 "Nacionalidade": $(this).find("#Nacionalidade").val(),
                 "Estado": $(this).find("#Estado").val(),
                 "Cidade": $(this).find("#Cidade").val(),
                 "Logradouro": $(this).find("#Logradouro").val(),
-                "Telefone": $(this).find("#Telefone").val()
+                "Telefone": $(this).find("#Telefone").val(),
+                "Beneficiarios": beneficiarios
             },
             error:
             function (r) {

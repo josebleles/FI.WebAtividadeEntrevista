@@ -49,7 +49,12 @@ namespace WebAtividadeEntrevista.Controllers
                     Nacionalidade = model.Nacionalidade,
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
-                    Telefone = model.Telefone
+                    Telefone = model.Telefone,
+                    Beneficiarios = model.Beneficiarios.Select(b => new Beneficiario()
+                    {
+                        Nome = b.Nome,
+                        CPF = b.CPF
+                    }).ToList()
                 });
 
            
@@ -84,7 +89,14 @@ namespace WebAtividadeEntrevista.Controllers
                     Nacionalidade = model.Nacionalidade,
                     Nome = model.Nome,
                     Sobrenome = model.Sobrenome,
-                    Telefone = model.Telefone
+                    Telefone = model.Telefone,
+                    Beneficiarios = model.Beneficiarios.Select(b => new Beneficiario()
+                    {
+                        Id = b.Id,
+                        Nome = b.Nome,
+                        CPF = b.CPF,
+                        IdCliente = model.Id
+                    }).ToList()
                 });
                                
                 return Json("Cadastro alterado com sucesso");
@@ -111,7 +123,13 @@ namespace WebAtividadeEntrevista.Controllers
                     Nacionalidade = cliente.Nacionalidade,
                     Nome = cliente.Nome,
                     Sobrenome = cliente.Sobrenome,
-                    Telefone = cliente.Telefone
+                    Telefone = cliente.Telefone,
+                    Beneficiarios = cliente.Beneficiarios.Select(b => new BeneficiarioModel
+                    {
+                        Id = b.Id,
+                        Nome = b.Nome,
+                        CPF = b.CPF
+                    }).ToList()
                 };
 
             

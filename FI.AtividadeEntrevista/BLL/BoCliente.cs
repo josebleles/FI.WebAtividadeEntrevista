@@ -15,7 +15,14 @@ namespace FI.AtividadeEntrevista.BLL
         public long Incluir(DML.Cliente cliente)
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
-            return cli.Incluir(cliente);
+            BLL.BoBeneficiario ben = new BLL.BoBeneficiario();
+            var id = cli.Incluir(cliente);
+            foreach(var beneficiario in cliente.Beneficiarios)
+            {
+                beneficiario.IdCliente = id;
+                ben.Incluir(beneficiario);
+            }
+            return id;
         }
 
         /// <summary>
@@ -25,7 +32,30 @@ namespace FI.AtividadeEntrevista.BLL
         public void Alterar(DML.Cliente cliente)
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
+            var clienteAntigo = this.Consultar(cliente.Id);
             cli.Alterar(cliente);
+            BLL.BoBeneficiario ben = new BLL.BoBeneficiario();
+            //adicionar os que não tem, editar os que já tem
+            foreach (var beneficiario in cliente.Beneficiarios)
+            {
+                beneficiario.IdCliente = cliente.Id;
+                if(beneficiario.Id == 0)
+                {
+                    ben.Incluir(beneficiario);
+                }
+                else
+                {
+                    ben.Alterar(beneficiario);
+                }
+            }
+            // remover os que nao tem mais
+            foreach(var benAntigo in clienteAntigo.Beneficiarios)
+            {
+                if(!cliente.Beneficiarios.Any(b => b.Id == benAntigo.Id))
+                {
+                    ben.Excluir(benAntigo.Id);
+                }
+            }
         }
 
         /// <summary>
@@ -36,7 +66,11 @@ namespace FI.AtividadeEntrevista.BLL
         public DML.Cliente Consultar(long id)
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
-            return cli.Consultar(id);
+            BLL.BoBeneficiario ben = new BLL.BoBeneficiario();
+            var cliente = this.Consultar(id);
+            cliente.Beneficiarios = ben.ListarPorCliente(cliente.Id);
+            
+            return cliente;
         }
 
         /// <summary>
@@ -47,6 +81,12 @@ namespace FI.AtividadeEntrevista.BLL
         public void Excluir(long id)
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
+            BLL.BoBeneficiario ben = new BLL.BoBeneficiario();
+            var cliente = this.Consultar(id);
+            foreach (var beneficiario in cliente.Beneficiarios)
+            {
+                ben.Excluir(beneficiario.Id);
+            }
             cli.Excluir(id);
         }
 
@@ -56,9 +96,16 @@ namespace FI.AtividadeEntrevista.BLL
         public List<DML.Cliente> Listar()
         {
             DAL.DaoCliente cli = new DAL.DaoCliente();
-            return cli.Listar();
-        }
+            BLL.BoBeneficiario ben = new BLL.BoBeneficiario();
 
+            var clientes = cli.Listar();
+            foreach (var cliente in clientes)
+            {
+                cliente.Beneficiarios = ben.ListarPorCliente(cliente.Id);
+            }
+            return clientes;
+
+        }
         /// <summary>
         /// Lista os clientes
         /// </summary>
@@ -69,7 +116,7 @@ namespace FI.AtividadeEntrevista.BLL
             var clientes = cli.Pesquisa(iniciarEm,  quantidade, campoOrdenacao, crescente, out qtd);
             foreach(var cliente in clientes)
             {
-                cliente.beneficiarios = ben.ListarPorCliente(cliente.Id);
+                cliente.Beneficiarios = ben.ListarPorCliente(cliente.Id);
             }
 
             return clientes;

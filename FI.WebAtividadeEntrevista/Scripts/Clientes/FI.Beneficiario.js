@@ -2,9 +2,13 @@
 var selectBenIndex = null;
 var btnIncluir = document.getElementById('incluirBeneficiario');
 $(document).ready(function () {
-    //if (obj) {
-    //    // populate #gridBeneficiarios
-    //}
+    if (isUpdate) {
+        beneficiarios = obj.beneficiarios.map(b => ({
+            id: b.id,
+            nome: b.nome,
+            cpf: b.cpf
+        }));
+    }
     $(btnIncluir).click(function (e) {
         e.preventDefault();
         if (selectBenIndex != null) {
